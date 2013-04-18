@@ -17,6 +17,6 @@ For sure, this feature is not one many people need, but it you do need it, this 
 
 The included iOS project can be used to experiment with the various settings:
 
-![ScreenShot](https://raw.github.com/dhoerl/EngineeringNotationFormatter/master/AppScreenShot.png).
+![ScreenShot](./AppScreenShot.png)
 
 We jointly offer this code here with a unattributed BSD style license (see source files).
