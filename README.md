@@ -15,6 +15,8 @@ A reverse function is also provided that takes the string in either exponential 
 
 For sure, this feature is not one many people need, but it you do need it, this code is invaluable, and I'm sure Jukka spent a good deal of time working on it.
 
-The included iOS project can be used to experiment with the various settings (see AppScreenShot image).
+The included iOS project can be used to experiment with the various settings:
+
+![ScreenShot](https://raw.github.com/dhoerl/EngineeringNotationFormatter/master/AppScreenShot.png).
 
 We jointly offer this code here with a unattributed BSD style license (see source files).
