@@ -42,7 +42,7 @@
 #define NUM_PREFIX 17
 static char *prefix[NUM_PREFIX] = {
   "y", "z", "a", "f",
-  "p", "n", "Âµ", "m",
+  "p", "n", "µ", "m",
   "",  "k", "M", "G",
   "T", "P", "E", "Z",
   "Y"
@@ -154,14 +154,15 @@ static char *eng2exp(const char *val)
 		if(!isdigit(c)) {
 			for(int i=0; i<NUM_PREFIX; ++i) {
 				const char *p = prefix[i];
+				if ( 0 == strlen(p) ) continue; // MM: skip empty suffix
 				size_t plen = strlen(p);
 				size_t strt = len - plen;
 				const char *tst = &val[strt];
 				if(!strcmp(tst, p)) {
 					// need 4+null for new string
 					tmp = (char *)malloc(strt + 4 + 1);
-					strncpy(tmp, val, strt);
-					tmp[strt] = '\0';
+					strncpy( tmp, val, strt-1 );    // MM: remove space
+					tmp[strt-1] = '\0';             // MM: remove space
 					strcat(tmp, reversePrefix[i]);
 					break;
 				}
