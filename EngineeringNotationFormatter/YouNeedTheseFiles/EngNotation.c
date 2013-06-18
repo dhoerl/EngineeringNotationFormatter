@@ -155,13 +155,15 @@ static char *eng2exp(const char *val)
 			for(int i=0; i<NUM_PREFIX; ++i) {
 				const char *p = prefix[i];
 				size_t plen = strlen(p);
+				if(!plen) continue;	// no prefix
 				size_t strt = len - plen;
+				if(!strt) continue;	// malformed
 				const char *tst = &val[strt];
 				if(!strcmp(tst, p)) {
 					// need 4+null for new string
 					tmp = (char *)malloc(strt + 4 + 1);
-					strncpy(tmp, val, strt);
-					tmp[strt] = '\0';
+					strncpy(tmp, val, strt-1);	// -1 removes the space
+					tmp[strt-1] = '\0';
 					strcat(tmp, reversePrefix[i]);
 					break;
 				}
