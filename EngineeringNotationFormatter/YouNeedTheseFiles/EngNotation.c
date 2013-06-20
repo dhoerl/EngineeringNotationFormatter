@@ -29,6 +29,7 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
+#include <assert.h>
 
 #include "EngNotation.h"
 
@@ -60,56 +61,137 @@ static char *eng2exp(const char *val);
 
 char *dbl2eng(double value, unsigned int digits, bool numeric)
 {
-	double display, fract;
+	//double display, fract;
 	char *sign;
 
 	if(digits < 3) {
 		digits = 3;
+	} else
+	if(digits > 9) {
+		digits = 9;
 	}
 
+	if(!isnormal(value)) {
+	
+	
+	}
+	
+	
 	if(value < 0.0) {
 		sign = "-";
 		value = fabs(value);
 	} else {
 		sign = "";
 	}
-
+printf("\n\n\n");
 	// correctly round to desired precision
 	int expof10 = lrint( floor( log10(value) ) );
+//printf("expof10=%d\n", expof10);
 
-	int power = (int)digits - 1 - expof10;
-	value *= pow(10.0, power);
+#if 0
+							int power = (int)digits - 1 - expof10;
+						printf("power=%d\n", power);
 
-	fract = modf(value, &display);
-	if(fract >= 0.5) {
-		display += 1.0;
-	}
+						printf("value=%lf\n", value);
+							value *= pow(10.0, power);
+						printf("...value=%lf\n", value);
 
-	value = display * pow(10.0, -power);	//  expof10 - digits + 1
+							fract = modf(value, &display);
+						printf("fract=%lf\n", fract);
+							if(fract >= 0.5) {
+								display += 1.0;
+						printf("BUMP display %lf\n", display);
+							}
+
+							value = display * pow(10.0, -power);	//  expof10 - digits + 1
+						printf("FINAL value=%lf\n", value);
+#endif
 
 	if(expof10 > 0) {
 		expof10 = (expof10/3)*3;
+printf("expof10-1 =%d\n", expof10);
 	} else {
 		expof10 = ((-expof10+3)/3)*(-3);
+printf("expof10-2 =%d\n", expof10);
 	}
 
 	value *= pow(10.0, -expof10);
-	if (value >= 1000.0) {
-		value /= 1000.0;
-		expof10 += 3;
-	} else
-	if(value >= 100.0) {
-		digits -= 2;
-	} else
-	if(value >= 10.0) {
-		digits -= 1;
+printf("value=%lf\n", value);
+
+	long lintgr, lfract;
+	{
+		double intgr, fract;
+		// doublepower; 
+		
+		fract = modf(value, &intgr);
+		lintgr = lrint(intgr);
+printf("compute: %ld . %lf\n", lintgr, fract);
+	
+		if(lintgr >= 1000) {
+			digits -= 3;				// fractional digits
+		} else
+		if(lintgr >= 100) {
+printf("lvalue > 100\n");
+			digits -= 2;				// fractional digits
+		} else
+		if(lintgr >= 10) {
+printf("is > 10\n");
+			digits -= 1;				// fractional digits
+		} else {
+printf("is > 10\n");
+			assert(!"Impossible to get < 1!");
+		}
+		
+		double fractMult = pow(10.0, (int)digits - 1);
+		long lfractMult = lrint(fractMult);
+printf("digits=%d fractMult=%lf lfractMult=%ld\n", digits, fractMult, lfractMult);
+
+		// round the fraction to the correct number of places
+		fract *= fractMult;
+		lfract = lrint(fract);
+
+printf("lintgr=%ld lfract=%ld\n", lintgr, lfract);
+
+		// did the rounding the fractional component cause an increase in the integral value?
+		if(lfract >= lfractMult) {
+printf("ROUND\n");
+			lfract -= lfractMult;			// remove overflow value
+
+			long nlintgr = lintgr + 1;
+			if( (lintgr < 1000 && nlintgr >= 1000) || (lintgr < 100 && nlintgr >= 100) || (lintgr < 10 && nlintgr >= 10) || (lintgr < 1 && nlintgr >= 1) ) {
+printf("WRAPPER\n");
+				lfract /= 10;
+				lfractMult /= 10;
+				fractMult /= 10;
+				digits -= 1;
+			}
+			lintgr = nlintgr;				// rounded up, so increase integral part
+		}
+
+		if(lintgr >= 1000) {
+printf(">1000!!!\n");
+			expof10 += 3;
+			digits += 3;
+			long fullVal = lrint(lintgr*fractMult) + lfract;
+			long fullMult = lrintf(1000.0 * fractMult);
+printf("lfractMult=%ld fullVal=%ld fullMult=%ld\n", lfractMult, fullVal, fullMult);
+			lintgr = fullVal / fullMult;
+			lfract = fullVal - (lintgr * fullMult);
+		}
+printf("FractionalMult=%ld\n", lfractMult);
 	}
 	
 	char *result;
 	if(numeric || (expof10 < PREFIX_START) || (expof10 > PREFIX_END)) {
-		asprintf(&result, "%s%.*fe%d", sign, digits-1, value, expof10);
+printf("RESULT 1: digits=%d\n", digits-1);
+		asprintf(&result, "%s%ld.%0.*lde%d", sign, lintgr, digits-1, lfract, expof10);
+		//asprintf(&result, "%s%.*fe%d", sign, digits-1, value, expof10);
 	} else {
-		asprintf(&result, "%s%.*f %s", sign, digits-1, value, prefix[(expof10-PREFIX_START)/3]);
+printf("RESULT 2: digits=%d\n", digits-1);
+		const char *s = prefix[(expof10-PREFIX_START)/3];
+		asprintf(&result, "%s%ld.%0.*ld%s%s", sign, lintgr, digits-1, lfract, *s ? " " : "", s);
+		//asprintf(&result, "%s%.*f%s%s", sign, digits-1, value, s);
+		//asprintf(&result, "%s%.*f %s", sign, digits-1, value, s);
 	}
 	return result;
 }
@@ -176,4 +258,131 @@ static char *eng2exp(const char *val)
 	return tmp;
 }
 
+
+#if 0
+//value += .000001;
+
+	// Now going to "pre-round" the value, within one power
+	int compute = 1;
+	for(int loops = 0; loops <= 10; ++loops) {
+		if(loops == 10) return NULL;
+		double intgr, fract;
+		long lintgr, lfract;
+		
+		if(compute) {
+			fract = modf(value, &intgr);
+			lintgr = lrint(intgr);
+printf("compute: %ld . %lf\n", lintgr, fract);
+			if(lintgr >= 1000) {
+printf("lvalue > 1000\n");
+				value /= 1000.0;
+				expof10 += 3;
+				compute = 1;
+				continue;
+			} else
+			if(lintgr < 1) {
+				// protection code, should never happen
+printf("is < 1\n");
+				value *= 1000.0;
+				expof10 -= 3;
+				compute = 1;
+				continue;
+			}
+			compute = 0;
+
+		}
+		
+		if(lintgr >= 100) {
+printf("lvalue > 100\n");
+			digits -= 2;				// fractional digits
+		} else
+		if(lintgr >= 10) {
+printf("is > 10\n");
+			digits -= 1;				// fractional digits
+		} else {
+printf("is > 10\n");
+		}
+		
+		double fractMult = pow(10.0, digits);
+		long lfractMult = lrint(fractMult);
+		if(lfractMult > 1) {
+			// round the fraction to the correct number of places
+			fract *= fractMult;
+			lfract = lrint(fract);
+			if(lfract >= lfractMult) {
+		
+		
+		
+		
+		}
+		
+		
+		
+	}
+
+#if 0
+		unsigned int ldigits;
+		long lvalue = lrint(value);	// correct or may round up
+		if (lvalue >= 1000) {
+printf("lvalue > 1000\n");
+			ldigits = digits;
+			value /= 1000.0;
+		} else
+		if(lvalue >= 100) {
+printf("lvalue > 100\n");
+			ldigits = digits - 1;
+		} else
+		if(lvalue >= 10) {
+printf("is > 10\n");
+			digits -= 1;
+		}
+	
+		if (value >= 1000.0) {
+			value /= 1000.0;
+			expof10 += 3;
+		} else
+		if(value >= 100.0) {
+			digits -= 2;
+		} else
+		if(value >= 10.0) {
+			digits -= 1;
+		}
+#endif
+	
+	
+	
+	}
+
+
+
+#if 0
+		unsigned int ldigits;
+		long lvalue = lrint(value);	// correct or may round up
+		if (lvalue >= 1000) {
+printf("lvalue > 1000\n");
+			ldigits = digits;
+			value /= 1000.0;
+		} else
+		if(lvalue >= 100) {
+printf("lvalue > 100\n");
+			ldigits = digits - 1;
+		} else
+		if(lvalue >= 10) {
+printf("is > 10\n");
+			digits -= 1;
+		}
+	
+		if (value >= 1000.0) {
+			value /= 1000.0;
+			expof10 += 3;
+		} else
+		if(value >= 100.0) {
+			digits -= 2;
+		} else
+		if(value >= 10.0) {
+			digits -= 1;
+		}
+#endif
+
+#endif
 
