@@ -1,7 +1,18 @@
 EngineeringNotationFormatter
 ============================
 
-iOS Project demoing C-based Engineering Notation Formatter with a Objective-C wrapper.
+iOS Project demoing C-based Engineering Notation Formatter with a Objective-C wrapper, and handles variable digits, style, and step capability.
+
+Notes:
+    Martin Moene has created a really nice C++ version, see https://github.com/martinmoene/EngFormat-Cpp
+	
+RELEASE NOTES: 
+    v 1.1 - after Martin Moene found some edge cases that produces failures, redid much of the code
+          - log messages can be enabled or not in EngNotation.c
+		  - handle input values which are not normal floats
+    v 1.0 - initial release, basically as I got i from Jukka Korpela
+
+HISTORICAL:
 
 Several years ago I tripped on a great C function that formats a floating point number into engineering notation, in either exponential or International System of Units (SI) notation. This C code was written by Jukka Korpela and posted at http://www.cs.tut.fi/~jkorpela/c/eng.html.
 
