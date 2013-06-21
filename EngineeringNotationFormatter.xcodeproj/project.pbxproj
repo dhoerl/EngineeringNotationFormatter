@@ -35,6 +35,7 @@
 		DE65BD4417202E9500906546 /* EngNotation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = EngNotation.c; sourceTree = "<group>"; };
 		DE65BD4617202EA700906546 /* EngNotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngNotation.h; sourceTree = "<group>"; };
 		DE65BD471720712900906546 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		DE91AE871774B40200FC7AEB /* PrintMe.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = PrintMe.txt; sourceTree = "<group>"; };
 		DEB8421817737B4E00A6BE13 /* EngNotationTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngNotationTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEB8421917737B4E00A6BE13 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		DEB8421F17737B4E00A6BE13 /* EngNotationTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EngNotationTest-Info.plist"; sourceTree = "<group>"; };
@@ -170,6 +171,7 @@
 				DED3ADB9171F2D9900639650 /* Default.png */,
 				DED3ADBB171F2D9900639650 /* Default@2x.png */,
 				DED3ADBD171F2D9900639650 /* Default-568h@2x.png */,
+				DE91AE871774B40200FC7AEB /* PrintMe.txt */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

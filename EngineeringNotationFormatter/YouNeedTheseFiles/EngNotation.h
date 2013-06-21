@@ -26,16 +26,22 @@
 
 #include <stdbool.h>
 
+
 #ifndef EngineeringNotationFormatter_EngNotation_h
 #define EngineeringNotationFormatter_EngNotation_h
 
-// converts a double to the specified number of digits, in either SI or exponential notation. The return string must be free()'d
-char *dbl2eng(double value, unsigned int digits, bool numeric);
+enum { eng_prefixed=0, eng_exponential };
 
-// converts the output of dbl2eng() into a double
-double eng2dbl(const char *val);
+// converts a double to the specified number of digits, in either SI or exponential notation. The return string must be free()'d
+char *to_engineering_string(double value, unsigned int digits, bool numeric);
+
+// as above, but append the final string
+char *to_engineering_string_unit(double value, unsigned int digits, bool numeric, const char *unit);
+
+// converts the output of to_engineering_string() into a double
+double from_engineering_string(const char *val);
 
 // step a value by the smallest possible increment
-char *stepEng(const char *val, unsigned int digits, bool numeric, bool positive);
+char *step_engineering_string(const char *val, unsigned int digits, bool numeric, bool positive);
 
 #endif

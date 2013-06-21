@@ -62,7 +62,7 @@
 	stepValue = newVal;
 
 	BOOL numeric = [numericSegControl selectedSegmentIndex] ? YES : NO;
-	processedLabel.text = DFstepEng(processedLabel.text, digitSlider.value, numeric, positive);
+	processedLabel.text = DHStepEngineeringString(processedLabel.text, digitSlider.value, numeric, positive);
 }
 
 - (void)update
@@ -71,13 +71,13 @@
 	unsigned int digits = digitSlider.value;
 	double value = [self rawToExp:valueSlider.value];
 	
-	NSString *engStr = DHdbl2eng(value, digits, numeric);
+	NSString *engStr = DHToEngineeringString(value, digits, numeric);
 	//NSLog(@"val=%f digits=%d numeric=%d", value, digits, numeric);
 	processedLabel.text = engStr;
-	double rev = DHeng2dbl(engStr);
+	double rev = DHFromEngineeringString(engStr);
 	reversedLabel.text = [NSString stringWithFormat:@"%.9e", rev];
 	
-NSLog(@"STEP: %@", DFstepEng(engStr, digits, numeric, YES));
+	// NSLog(@"STEP: %@", DHStepEngineeringString(engStr, digits, numeric, YES));
 	
 }
 

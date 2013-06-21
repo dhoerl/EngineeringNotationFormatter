@@ -27,10 +27,20 @@
 
 #import "EngNotation.h"
 
-NSString *DHdbl2eng(double value, int digits, BOOL numeric)
+NSString *DHToEngineeringString(double value, int digits, BOOL numeric)
 {
 	NSString *ret;
-	char *str = dbl2eng(value, digits, (bool)numeric);
+	char *str = to_engineering_string(value, digits, (bool)numeric);
+	
+	if(str) {
+		ret = [[NSString alloc] initWithBytesNoCopy:str length:strlen(str) encoding:NSUTF8StringEncoding freeWhenDone:YES];
+	}
+	return ret;
+}
+NSString *DHToEngineeringStringUnit(double value, int digits, BOOL numeric, NSString *unit)
+{
+	NSString *ret;
+	char *str = to_engineering_string_unit(value, digits, (bool)numeric, [unit cStringUsingEncoding:NSUTF8StringEncoding]);
 	
 	if(str) {
 		ret = [[NSString alloc] initWithBytesNoCopy:str length:strlen(str) encoding:NSUTF8StringEncoding freeWhenDone:YES];
@@ -38,17 +48,17 @@ NSString *DHdbl2eng(double value, int digits, BOOL numeric)
 	return ret;
 }
 
-double DHeng2dbl(NSString *str)
+double DHFromEngineeringString(NSString *str)
 {
-	double ret = eng2dbl([str cStringUsingEncoding:NSUTF8StringEncoding]);
+	double ret = from_engineering_string([str cStringUsingEncoding:NSUTF8StringEncoding]);
 	return ret;
 }
 
 
-NSString *DFstepEng(NSString *oldEng, int digits, BOOL numeric, BOOL positive)
+NSString *DHStepEngineeringString(NSString *oldEng, int digits, BOOL numeric, BOOL positive)
 {
 	NSString *ret;
-	char *str = stepEng([oldEng cStringUsingEncoding:NSUTF8StringEncoding], digits, numeric, positive);
+	char *str = step_engineering_string([oldEng cStringUsingEncoding:NSUTF8StringEncoding], digits, numeric, positive);
 	if(str) {
 		ret = [[NSString alloc] initWithBytesNoCopy:str length:strlen(str) encoding:NSUTF8StringEncoding freeWhenDone:YES];
 	}

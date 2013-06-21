@@ -1,0 +1,22 @@
+GOOD: GT: expof10=96
+value=100.000000
+compute: 99 . 1.000000
+is > 10 (99)
+digits=2 fractMult=10.000000 lfractMult=10
+lintgr=99 lfract=10 fract=10.000000
+ROUND
+WRAP
+lintgr=100 lfract=0
+RESULT 1: digits=0
+STR: 100e96
+
+BAD: GT: expof10=96
+value=100.000000
+compute: 99 . 1.000000
+is > 10 (99)
+digits=2 fractMult=10.000000 lfractMult=10
+lintgr=99 lfract=10 fract=10.000000
+ROUND
+WRAP
+lintgr=100 lfract=0
+ASSERT STR is:1000e96

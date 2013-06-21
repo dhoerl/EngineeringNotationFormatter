@@ -23,10 +23,10 @@
 // THE SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
+NSString *DHToEngineeringString(double value, int digits, BOOL numeric);
 
-NSString *DHdbl2eng(double value, int digits, BOOL numeric);
+NSString *DHToEngineeringStringUnit(double value, int digits, BOOL numeric, NSString *unit);
 
-double DHeng2dbl(NSString *str);
+double DHFromEngineeringString(NSString *str);
 
-NSString *DFstepEng(NSString *str, int digits, BOOL numeric, BOOL positive);
+NSString *DHStepEngineeringString(NSString *str, int digits, BOOL numeric, BOOL positive);

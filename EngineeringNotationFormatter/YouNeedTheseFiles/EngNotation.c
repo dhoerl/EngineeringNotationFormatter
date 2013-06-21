@@ -41,7 +41,6 @@
 #endif
 
 
-#define PREFIX_START (-24)
 /* 
  * Smallest power of ten for which there is a prefix defined.
  * If the set of prefixes will be extended, change this constant
@@ -67,15 +66,18 @@ static char *reversePrefix[NUM_PREFIX] = {
  "e12", "e15", "e18", "e21",
  "e24"
 };
-#define PREFIX_END (PREFIX_START+(int)((sizeof(prefix)/sizeof(char *)-1)*3))
 
-static char *eng2exp(const char *val);
+const int prefix_count = NUM_PREFIX;
+const int prefix_start = -24;
+const int prefix_end   = prefix_start + 3 * ( prefix_count - 1 );
+
+static char *engineering_to_exponential(const char *val);
 
 
-char *dbl2eng(double value, unsigned int digits, bool numeric)
+char *to_engineering_string(double value, unsigned int digits, bool exponential)
 {
-	int is_signed = signbit(value);
-	char *sign = is_signed ? "-" : "";
+	bool is_signed = signbit(value);
+	const char *sign = is_signed ? "-" : "";
 	
 	int classify = fpclassify(value);
 	if(classify != FP_NORMAL) {
@@ -85,7 +87,7 @@ char *dbl2eng(double value, unsigned int digits, bool numeric)
 		default:
 		{
 			char *s;
-			if(numeric) {
+			if(exponential) {
 				asprintf(&s, "%s%.*fe0", sign, digits-1, 0.0);
 			} else {
 				asprintf(&s, "%s%.*f", sign, digits-1, 0.0);
@@ -113,13 +115,13 @@ char *dbl2eng(double value, unsigned int digits, bool numeric)
 	LOG("\n\n");
 
 	// correctly round to desired precision
-	int expof10 = lrint( floor( log10(value) ) );
+	long expof10 = lrint( floor( log10(value) ) );
 	if(expof10 > 0) {
 		expof10 = (expof10/3)*3;
-		LOG("GTO: expof10=%d\n", expof10);
+		LOG("GT: expof10=%ld\n", expof10);
 	} else {
 		expof10 = ((-expof10+3)/3)*(-3);
-		LOG("LTE: expof10=%d\n", expof10);
+		LOG("LTE: expof10=%ld\n", expof10);
 	}
 
 	value *= pow(10.0, -expof10);
@@ -160,7 +162,7 @@ char *dbl2eng(double value, unsigned int digits, bool numeric)
 		// round the fraction to the correct number of places
 		fract *= fractMult;
 		lfract = lrint(fract);
-		LOG("lintgr=%ld lfract=%ld\n", lintgr, lfract);
+		LOG("lintgr=%ld lfract=%ld fract=%lf\n", lintgr, lfract, fract);
 
 		// did the rounding the fractional component cause an increase in the integral value?
 		if(lfract >= lfractMult) {
@@ -169,16 +171,17 @@ char *dbl2eng(double value, unsigned int digits, bool numeric)
 
 			long nlintgr = lintgr + 1;
 			if( (lintgr < 1000 && nlintgr >= 1000) || (lintgr < 100 && nlintgr >= 100) || (lintgr < 10 && nlintgr >= 10) || (lintgr < 1 && nlintgr >= 1) ) {
-				LOG("WRAPPER\n");
+				LOG("WRAP\n");
 				lfract /= 10;
 				fractMult /= 10;
 				digits -= 1;
 			}
 			lintgr = nlintgr;				// rounded up, so increase integral part
+			LOG("lintgr=%ld lfract=%ld\n", lintgr, lfract);
 		}
 
 		if(lintgr >= 1000) {
-			LOG(">1000!!!\n");
+			LOG(">=1000\n");
 			expof10 += 3;
 			digits += 3;
 
@@ -188,34 +191,51 @@ char *dbl2eng(double value, unsigned int digits, bool numeric)
 
 			lintgr = fullVal / fullMult;
 			lfract = fullVal - (lintgr * fullMult);
+			LOG("lintgr=%ld lfract=%ld\n", lintgr, lfract);
 		}
-		LOG("FractionalMult=%ld\n", lfractMult);
 	}
+
+	--digits;
+	const char *decimal_str = digits ? "." : "";
 	
 	char *result;
-	if(numeric || (expof10 < PREFIX_START) || (expof10 > PREFIX_END)) {
-		LOG("RESULT 1: digits=%d\n", digits-1);
-		asprintf(&result, "%s%ld.%0.*lde%d", sign, lintgr, digits-1, lfract, expof10);
+	if(exponential || (expof10 < prefix_start) || (expof10 > prefix_end)) {
+		LOG("RESULT 1: digits=%d\n", digits);
+		asprintf(&result, "%s%ld%s%0.*lde%ld", sign, lintgr, decimal_str, digits, lfract, expof10);
 	} else {
-		LOG("RESULT 2: digits=%d\n", digits-1);
-		const char *s = prefix[(expof10-PREFIX_START)/3];
-		asprintf(&result, "%s%ld.%0.*ld%s%s", sign, lintgr, digits-1, lfract, *s ? " " : "", s);
+		LOG("RESULT 2: digits=%d\n", digits);
+		const char *s = prefix[(expof10-prefix_start)/3];
+		asprintf(&result, "%s%ld%s%0.*ld%s%s", sign, lintgr, decimal_str, digits, lfract, *s ? " " : "", s);
 	}
 	return result;
 }
 
-// converts the output of dbl2eng() into a double
-double eng2dbl(const char *val)
+char *to_engineering_string_unit(double value, unsigned int digits, bool numeric, const char *unit)
 {
-	char *tstVal = eng2exp(val);
+	char *ret = to_engineering_string(value, digits, numeric);
+	
+	if(isdigit(ret[0])) {
+		size_t len = strlen(ret);
+		if(numeric) ++len;
+		ret = (char *)realloc(ret, len + strlen(unit));	// string already had the trailing null, so no need for another
+		if(numeric) strcat(ret, " ");
+		strcat(ret, unit);
+	}
+	return ret;
+}
+
+// converts the output of to_engineering_string() into a double
+double from_engineering_string(const char *val)
+{
+	char *tstVal = engineering_to_exponential(val);
 	double ret = strtod(tstVal, NULL);
 	free(tstVal);
 	return ret;
 }
 
-char *stepEng(const char *val, unsigned int digits, bool numeric, bool positive)
+char *step_engineering_string(const char *val, unsigned int digits, bool exponential, bool positive)
 {
-	char *tstVal = eng2exp(val);
+	char *tstVal = engineering_to_exponential(val);
 	double value = strtod(tstVal, NULL);
 	free(tstVal);
 
@@ -223,55 +243,79 @@ char *stepEng(const char *val, unsigned int digits, bool numeric, bool positive)
 		digits = 3;
 	}
 	// correctly round to desired precision
-	int expof10 = lrint( floor( log10(value) ) );
-	int power =  expof10 + 1 - (int)digits;
+	long expof10 = lrint( floor( log10(value) ) );
+	long power =  expof10 + 1 - (int)digits;
 	
 	double inc = pow(10, power) * (positive ? +1 : -1);
 	double ret = value + inc;
 	
-	char *str = dbl2eng(ret, digits, numeric);
+	char *str = to_engineering_string(ret, digits, exponential);
 	return str;
 }
 
-static char *eng2exp(const char *val)
+// Set to 1 for debugging info
+#if 0
+#undef LOG
+#if 1
+#define LOG(...) printf(__VA_ARGS__)
+#else
+#define LOG(...)
+#endif
+#endif
+
+static char *engineering_to_exponential(const char *val)
 {
 	size_t len = strlen(val);
 	if(!len || !isdigit(val[0])) {
 		return strdup("NaN");
 	}
-	char *tmp = NULL;
+	char *ret = NULL;
 
 	if(len >= 3) {
 		// space and last value which might be a UTF-8 char. Formats are "1 y", "900.", "900. y", "1.23 M"
 		int c = val[len-1];
 		if(!isdigit(c) && c != '.') {
-			int i;
-			for(i=0; i<NUM_PREFIX; ++i) {
-				const char *p = prefix[i];
-				size_t plen = strlen(p);
-				if(!plen) continue;	// no prefix
-				size_t strt = len - plen;
-				if(!strt) continue;	// malformed
-				const char *tst = &val[strt];
-				LOG("COMPARE %s to %s\n", tst, p);
-				if(!strcmp(tst, p)) {
-					// need 4+null for new string
-					tmp = (char *)malloc(strt + 4 + 1);
-					strncpy(tmp, val, strt-1);	// -1 removes the space
-					tmp[strt-1] = '\0';
-					strcat(tmp, reversePrefix[i]);
+			int i = NUM_PREFIX;
+			bool look = false;
+			const char *strt = val + len;
+			
+			for(int j=0; j<len; ++j) {
+				--strt;
+				if(*strt == ' ') {
+					look = j ? true : false;	// anything after the space?
+					++strt;
 					break;
 				}
 			}
+			if(look) {
+				size_t strtlen = strlen(strt);
+				for(i=0; i<NUM_PREFIX; ++i) {
+					const char *p = prefix[i];
+					size_t plen = strlen(p);
+					if(!plen) continue;				// no prefix
+					if(plen > strtlen) continue;	// insufficient chars
+					LOG("COMPARE %.*s to %s\n", (int)plen, strt, p);
+					if(!strncmp(strt, p, plen)) {
+						// need 4+null for new string
+						size_t vallen = (strt - val) - 1;	// skip space
+						ret = (char *)malloc(vallen + 4 + 1);	// 4 the e-xx
+						strncpy(ret, val, vallen);	// -1 removes the space
+						ret[vallen] = '\0';
+						strcat(ret, reversePrefix[i]);
+						LOG("FINAL %s\n", ret);
+						break;
+					}
+				}
+			}
 			if(i == NUM_PREFIX) {
-				tmp = strdup("NaN");
+				ret = strdup("NaN");
 			}
 		}
 	}
-	if(!tmp) {
+	if(!ret) {
 		// could be "1" (cheating, as the eng will not return a string < 3 chars)
-		tmp = strdup(val);
+		ret = strdup(val);
 	}
-	LOG("eng2exp RETURN %s\n", tmp);
-	return tmp;
+	LOG("engineering_to_exponential RETURN %s\n", ret);
+	return ret;
 }
