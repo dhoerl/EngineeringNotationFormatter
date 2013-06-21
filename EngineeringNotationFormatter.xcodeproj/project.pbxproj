@@ -10,6 +10,12 @@
 		DE65BD4317202E7700906546 /* DHengNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = DE65BD4217202E7700906546 /* DHengNotation.m */; };
 		DE65BD4517202E9500906546 /* EngNotation.c in Sources */ = {isa = PBXBuildFile; fileRef = DE65BD4417202E9500906546 /* EngNotation.c */; };
 		DE65BD481720712900906546 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DE65BD471720712900906546 /* README.md */; };
+		DEB8421A17737B4E00A6BE13 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB8421917737B4E00A6BE13 /* SenTestingKit.framework */; };
+		DEB8421B17737B4E00A6BE13 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED3ADA7171F2D9900639650 /* UIKit.framework */; };
+		DEB8421C17737B4E00A6BE13 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED3ADA9171F2D9900639650 /* Foundation.framework */; };
+		DEB8422217737B4E00A6BE13 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DEB8422017737B4E00A6BE13 /* InfoPlist.strings */; };
+		DEB8422517737B4E00A6BE13 /* EngNotationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DEB8422417737B4E00A6BE13 /* EngNotationTest.m */; };
+		DEB8422A17737B6E00A6BE13 /* EngNotation.c in Sources */ = {isa = PBXBuildFile; fileRef = DE65BD4417202E9500906546 /* EngNotation.c */; };
 		DED3ADA8171F2D9900639650 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED3ADA7171F2D9900639650 /* UIKit.framework */; };
 		DED3ADAA171F2D9900639650 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED3ADA9171F2D9900639650 /* Foundation.framework */; };
 		DED3ADAC171F2D9900639650 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED3ADAB171F2D9900639650 /* CoreGraphics.framework */; };
@@ -29,6 +35,13 @@
 		DE65BD4417202E9500906546 /* EngNotation.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = EngNotation.c; sourceTree = "<group>"; };
 		DE65BD4617202EA700906546 /* EngNotation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngNotation.h; sourceTree = "<group>"; };
 		DE65BD471720712900906546 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		DEB8421817737B4E00A6BE13 /* EngNotationTest.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EngNotationTest.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DEB8421917737B4E00A6BE13 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		DEB8421F17737B4E00A6BE13 /* EngNotationTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "EngNotationTest-Info.plist"; sourceTree = "<group>"; };
+		DEB8422117737B4E00A6BE13 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		DEB8422317737B4E00A6BE13 /* EngNotationTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EngNotationTest.h; sourceTree = "<group>"; };
+		DEB8422417737B4E00A6BE13 /* EngNotationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EngNotationTest.m; sourceTree = "<group>"; };
+		DEB8422617737B4E00A6BE13 /* EngNotationTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EngNotationTest-Prefix.pch"; sourceTree = "<group>"; };
 		DED3ADA4171F2D9900639650 /* EngineeringNotationFormatter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EngineeringNotationFormatter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DED3ADA7171F2D9900639650 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DED3ADA9171F2D9900639650 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -48,6 +61,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		DEB8421417737B4E00A6BE13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB8421A17737B4E00A6BE13 /* SenTestingKit.framework in Frameworks */,
+				DEB8421B17737B4E00A6BE13 /* UIKit.framework in Frameworks */,
+				DEB8421C17737B4E00A6BE13 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DED3ADA1171F2D9900639650 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -72,11 +95,32 @@
 			path = YouNeedTheseFiles;
 			sourceTree = "<group>";
 		};
+		DEB8421D17737B4E00A6BE13 /* EngNotationTest */ = {
+			isa = PBXGroup;
+			children = (
+				DEB8422317737B4E00A6BE13 /* EngNotationTest.h */,
+				DEB8422417737B4E00A6BE13 /* EngNotationTest.m */,
+				DEB8421E17737B4E00A6BE13 /* Supporting Files */,
+			);
+			path = EngNotationTest;
+			sourceTree = "<group>";
+		};
+		DEB8421E17737B4E00A6BE13 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DEB8421F17737B4E00A6BE13 /* EngNotationTest-Info.plist */,
+				DEB8422017737B4E00A6BE13 /* InfoPlist.strings */,
+				DEB8422617737B4E00A6BE13 /* EngNotationTest-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		DED3AD9B171F2D9900639650 = {
 			isa = PBXGroup;
 			children = (
 				DE65BD471720712900906546 /* README.md */,
 				DED3ADAD171F2D9900639650 /* EngineeringNotationFormatter */,
+				DEB8421D17737B4E00A6BE13 /* EngNotationTest */,
 				DED3ADA6171F2D9900639650 /* Frameworks */,
 				DED3ADA5171F2D9900639650 /* Products */,
 			);
@@ -86,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				DED3ADA4171F2D9900639650 /* EngineeringNotationFormatter.app */,
+				DEB8421817737B4E00A6BE13 /* EngNotationTest.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +141,7 @@
 				DED3ADA7171F2D9900639650 /* UIKit.framework */,
 				DED3ADA9171F2D9900639650 /* Foundation.framework */,
 				DED3ADAB171F2D9900639650 /* CoreGraphics.framework */,
+				DEB8421917737B4E00A6BE13 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -131,6 +177,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		DEB8421717737B4E00A6BE13 /* EngNotationTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DEB8422717737B4E00A6BE13 /* Build configuration list for PBXNativeTarget "EngNotationTest" */;
+			buildPhases = (
+				DEB8421317737B4E00A6BE13 /* Sources */,
+				DEB8421417737B4E00A6BE13 /* Frameworks */,
+				DEB8421517737B4E00A6BE13 /* Resources */,
+				DEB8421617737B4E00A6BE13 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EngNotationTest;
+			productName = EngNotationTest;
+			productReference = DEB8421817737B4E00A6BE13 /* EngNotationTest.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		DED3ADA3171F2D9900639650 /* EngineeringNotationFormatter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DED3ADC7171F2D9900639650 /* Build configuration list for PBXNativeTarget "EngineeringNotationFormatter" */;
@@ -170,11 +234,20 @@
 			projectRoot = "";
 			targets = (
 				DED3ADA3171F2D9900639650 /* EngineeringNotationFormatter */,
+				DEB8421717737B4E00A6BE13 /* EngNotationTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		DEB8421517737B4E00A6BE13 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB8422217737B4E00A6BE13 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DED3ADA2171F2D9900639650 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -190,7 +263,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DEB8421617737B4E00A6BE13 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		DEB8421317737B4E00A6BE13 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DEB8422517737B4E00A6BE13 /* EngNotationTest.m in Sources */,
+				DEB8422A17737B6E00A6BE13 /* EngNotation.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DED3ADA0171F2D9900639650 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,6 +304,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		DEB8422017737B4E00A6BE13 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DEB8422117737B4E00A6BE13 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		DED3ADB0171F2D9900639650 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -225,11 +331,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		DEB8422817737B4E00A6BE13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EngNotationTest/EngNotationTest-Prefix.pch";
+				INFOPLIST_FILE = "EngNotationTest/EngNotationTest-Info.plist";
+				OTHER_CFLAGS = "-DENG_FORMAT_MICRO_GLYPH=\"\\\"u\\\"\"";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		DEB8422917737B4E00A6BE13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "EngNotationTest/EngNotationTest-Prefix.pch";
+				INFOPLIST_FILE = "EngNotationTest/EngNotationTest-Info.plist";
+				OTHER_CFLAGS = (
+					"-DNS_BLOCK_ASSERTIONS=1",
+					"-DENG_FORMAT_MICRO_GLYPH=\"\\\"u\\\"\"",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
 		DED3ADC5171F2D9900639650 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -239,7 +380,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -260,7 +401,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -270,7 +411,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -306,6 +447,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		DEB8422717737B4E00A6BE13 /* Build configuration list for PBXNativeTarget "EngNotationTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEB8422817737B4E00A6BE13 /* Debug */,
+				DEB8422917737B4E00A6BE13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DED3AD9F171F2D9900639650 /* Build configuration list for PBXProject "EngineeringNotationFormatter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
