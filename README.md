@@ -32,3 +32,4 @@ The included iOS project can be used to experiment with the various settings:
 ![ScreenShot](./AppScreenShot.png)
 
 We jointly offer this code here with a unattributed BSD style license (see source files).
+
