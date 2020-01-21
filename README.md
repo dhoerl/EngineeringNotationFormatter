@@ -7,6 +7,7 @@ Notes:
     Martin Moene has created a really nice C++ version, see https://github.com/martinmoene/EngFormat-Cpp
 	
 RELEASE NOTES: 
+    v 1.3 - Fixed Stepper display, and updated project for Xcode 11
     v 1.2 - after Martin Moene found some edge cases that produces failures, redid much of the code
           - log messages can be enabled or not in EngNotation.c
 		  - handle input values which are not normal floats and return Nan, Infinite, etc as appropriate
