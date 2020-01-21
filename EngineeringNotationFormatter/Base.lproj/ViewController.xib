@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
+            <connections>
+                <outlet property="actualLabel" destination="23" id="177"/>
+                <outlet property="digitSlider" destination="69" id="183"/>
+                <outlet property="digitsLabel" destination="78" id="176"/>
+                <outlet property="numericSegControl" destination="63" id="182"/>
+                <outlet property="processedLabel" destination="28" id="178"/>
+                <outlet property="reversedLabel" destination="107" id="179"/>
+                <outlet property="valueSlider" destination="8" id="184"/>
+                <outlet property="view" destination="6" id="7"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="6">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="-27" maxValue="27" translatesAutoresizingMaskIntoConstraints="NO" id="8">
+                    <rect key="frame" x="18" y="262" width="378" height="31"/>
+                    <connections>
+                        <action selector="valueAction:" destination="-1" eventType="valueChanged" id="175"/>
+                    </connections>
+                </slider>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Actual:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="15">
+                    <rect key="frame" x="29" y="300" width="53" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Processed:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18">
+                    <rect key="frame" x="29" y="329" width="86" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23">
+                    <rect key="frame" x="242" y="300" width="152" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="152" id="26"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="28">
+                    <rect key="frame" x="242" y="329" width="152" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="107">
+                    <rect key="frame" x="242" y="358" width="152" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="63">
+                    <rect key="frame" x="20" y="42" width="374" height="32"/>
+                    <segments>
+                        <segment title="SI Units"/>
+                        <segment title="Exponential"/>
+                    </segments>
+                    <connections>
+                        <action selector="numericAction:" destination="-1" eventType="valueChanged" id="173"/>
+                    </connections>
+                </segmentedControl>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="3" maxValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="69">
+                    <rect key="frame" x="70" y="118" width="177" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="173" id="82"/>
+                    </constraints>
+                    <connections>
+                        <action selector="digitsAction:" destination="-1" eventType="valueChanged" id="174"/>
+                    </connections>
+                </slider>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Digits" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="73">
+                    <rect key="frame" x="20" y="118" width="44" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78">
+                    <rect key="frame" x="253" y="127" width="42" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="42" id="180"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Reversed:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="104">
+                    <rect key="frame" x="29" y="358" width="76" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Slide to test output:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="170">
+                    <rect key="frame" x="20" y="225.66666666666666" width="150.66666666666666" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minimumValue="-10000" maximumValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="185">
+                    <rect key="frame" x="179" y="191" width="94" height="32"/>
+                    <connections>
+                        <action selector="stepper:" destination="-1" eventType="valueChanged" id="192"/>
+                    </connections>
+                </stepper>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Step:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="188">
+                    <rect key="frame" x="130.66666666666666" y="196.66666666666666" width="40" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.75" green="0.75" blue="0.75" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="8" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="12"/>
+                <constraint firstAttribute="trailing" secondItem="8" secondAttribute="trailing" constant="20" symbolic="YES" id="14"/>
+                <constraint firstItem="15" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="29" id="16"/>
+                <constraint firstItem="18" firstAttribute="leading" secondItem="15" secondAttribute="leading" id="20"/>
+                <constraint firstAttribute="trailing" secondItem="23" secondAttribute="trailing" constant="20" symbolic="YES" id="27"/>
+                <constraint firstItem="28" firstAttribute="leading" secondItem="23" secondAttribute="leading" id="32"/>
+                <constraint firstAttribute="trailing" secondItem="28" secondAttribute="trailing" constant="20" symbolic="YES" id="33"/>
+                <constraint firstItem="8" firstAttribute="top" secondItem="6" secondAttribute="top" constant="262" id="61"/>
+                <constraint firstItem="63" firstAttribute="top" secondItem="6" secondAttribute="top" constant="42" id="64"/>
+                <constraint firstAttribute="trailing" secondItem="63" secondAttribute="trailing" constant="20" symbolic="YES" id="66"/>
+                <constraint firstItem="63" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="68"/>
+                <constraint firstItem="73" firstAttribute="top" secondItem="69" secondAttribute="top" id="74"/>
+                <constraint firstItem="73" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="75"/>
+                <constraint firstItem="73" firstAttribute="top" secondItem="6" secondAttribute="top" constant="118" id="76"/>
+                <constraint firstItem="69" firstAttribute="leading" secondItem="73" secondAttribute="trailing" constant="8" symbolic="YES" id="77"/>
+                <constraint firstItem="78" firstAttribute="bottom" secondItem="69" secondAttribute="bottom" id="79"/>
+                <constraint firstItem="78" firstAttribute="leading" secondItem="69" secondAttribute="trailing" constant="8" symbolic="YES" id="81"/>
+                <constraint firstItem="104" firstAttribute="leading" secondItem="18" secondAttribute="leading" id="105"/>
+                <constraint firstAttribute="trailing" secondItem="107" secondAttribute="trailing" constant="20" symbolic="YES" id="111"/>
+                <constraint firstItem="107" firstAttribute="leading" secondItem="28" secondAttribute="leading" id="113"/>
+                <constraint firstItem="15" firstAttribute="top" secondItem="8" secondAttribute="bottom" constant="8" symbolic="YES" id="163"/>
+                <constraint firstItem="18" firstAttribute="top" secondItem="15" secondAttribute="bottom" constant="8" symbolic="YES" id="164"/>
+                <constraint firstItem="104" firstAttribute="top" secondItem="18" secondAttribute="bottom" constant="8" symbolic="YES" id="165"/>
+                <constraint firstItem="23" firstAttribute="baseline" secondItem="15" secondAttribute="baseline" id="167"/>
+                <constraint firstItem="28" firstAttribute="baseline" secondItem="18" secondAttribute="baseline" id="168"/>
+                <constraint firstItem="107" firstAttribute="baseline" secondItem="104" secondAttribute="baseline" id="169"/>
+                <constraint firstItem="170" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="20" symbolic="YES" id="172"/>
+                <constraint firstItem="170" firstAttribute="top" secondItem="188" secondAttribute="bottom" constant="8" symbolic="YES" id="195"/>
+                <constraint firstItem="188" firstAttribute="trailing" secondItem="170" secondAttribute="trailing" id="196"/>
+                <constraint firstItem="185" firstAttribute="top" secondItem="6" secondAttribute="top" constant="191" id="198"/>
+                <constraint firstItem="185" firstAttribute="centerY" secondItem="188" secondAttribute="centerY" id="199"/>
+                <constraint firstItem="185" firstAttribute="leading" secondItem="188" secondAttribute="trailing" constant="8" symbolic="YES" id="200"/>
+            </constraints>
+            <point key="canvasLocation" x="25" y="52"/>
+        </view>
+    </objects>
+</document>
